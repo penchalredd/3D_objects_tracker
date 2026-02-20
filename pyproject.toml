@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cam3d-classical-tracker"
+version = "0.1.0"
+description = "Classical 3D multi-object tracker for camera-based 3D detections"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Tracker Team" }]
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "PyYAML>=6.0"
+]
+
+[project.scripts]
+track3d = "cam3d_tracker.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,40 @@
+tracker:
+  dt_fallback_s: 0.5
+  max_age_s:
+    car: 1.5
+    truck: 1.5
+    bus: 1.5
+    trailer: 1.5
+    construction_vehicle: 1.5
+    pedestrian: 2.0
+    motorcycle: 2.0
+    bicycle: 2.0
+    default: 1.5
+  min_hits:
+    default: 2
+  init_score_threshold: 0.2
+  confirm_score_threshold: 0.3
+  existence_decay: 0.92
+
+association:
+  maha_gate_threshold: 16.0
+  second_stage_center_gate_m: 2.5
+  cost_weights:
+    maha: 0.55
+    iou: 0.30
+    yaw: 0.15
+
+noise:
+  process_cv_diag: [0.8, 0.8, 0.4, 1.2, 0.15, 0.2, 0.05, 0.05, 0.05]
+  process_ctrv_diag: [0.6, 0.6, 0.4, 1.0, 0.10, 0.25, 0.05, 0.05, 0.05]
+  meas_by_class:
+    default: [1.8, 1.8, 1.2, 0.22, 0.3, 0.3, 0.3]
+    pedestrian: [2.2, 2.2, 1.4, 0.35, 0.4, 0.4, 0.5]
+    bicycle: [2.0, 2.0, 1.4, 0.30, 0.5, 0.4, 0.5]
+    motorcycle: [2.0, 2.0, 1.4, 0.28, 0.5, 0.4, 0.5]
+
+imm:
+  mode_prob_init: [0.5, 0.5]
+  transition: [[0.95, 0.05], [0.05, 0.95]]
+
+classes: [car, truck, bus, trailer, construction_vehicle, pedestrian, motorcycle, bicycle]
