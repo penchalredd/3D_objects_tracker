@@ -1,0 +1,26 @@
+sparse4d:
+  run_inference: true
+  repo_root: /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/third_party/Sparse4D
+  python_exe: python
+  config_path: projects/configs/sparse4dv3_temporal_r50_1x8_bs6_256x704.py
+  checkpoint_path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/checkpoints/sparse4dv3_r50.pth
+  nuscenes_dataroot: /path/to/nuscenes
+  ann_file: data/nuscenes_anno_pkls/nuscenes_infos_val.pkl
+  # Detection-only output from Sparse4D formatter.
+  results_nusc_path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/outputs/sparse4d_detection/results_nusc.json
+  cfg_options:
+    data.test.tracking_threshold: 0.0
+
+conversion:
+  nuscenes_dataroot: /path/to/nuscenes
+  nuscenes_version: v1.0-trainval
+  # For dry-run/local tests without nuscenes-devkit, provide token->timestamp map JSON.
+  token_timestamps_json: null
+  allowed_labels: [car, truck, bus, trailer, construction_vehicle, pedestrian, motorcycle, bicycle]
+
+tracker:
+  config_path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/configs/default.yaml
+
+output:
+  detections_path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/outputs/sparse4d_detections_for_tracker.json
+  tracks_path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/outputs/sparse4d_classical_tracks.json

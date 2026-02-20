@@ -1,0 +1,38 @@
+nuscenes:
+  dataroot: /path/to/nuscenes
+  version: v1.0-trainval
+  split: val
+  max_frames: 200
+  camera_order:
+    - CAM_FRONT
+    - CAM_FRONT_LEFT
+    - CAM_FRONT_RIGHT
+    - CAM_BACK
+    - CAM_BACK_LEFT
+    - CAM_BACK_RIGHT
+
+detector:
+  model_class: your_package.models:YourNuScenesModel
+  checkpoint_path: /path/to/model_checkpoint.pth
+  model_kwargs: {}
+  device: cuda
+  input_adapter: nuscenes_runtime.examples.custom_adapter:build_model_input
+  output_adapter: nuscenes_runtime.examples.custom_adapter:convert_model_output
+  min_score: 0.15
+  detections_in_ego_frame: true
+  transform_ego_to_global: true
+  label_map:
+    0: car
+    1: truck
+    2: bus
+    3: trailer
+    4: construction_vehicle
+    5: pedestrian
+    6: motorcycle
+    7: bicycle
+
+tracker:
+  config_path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/configs/default.yaml
+
+output:
+  path: /Users/bhumireddypenchalareddy/Documents/3d_tracker/outputs/nuscenes_tracks.json

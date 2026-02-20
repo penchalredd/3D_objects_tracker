@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "use_camera": true,
+    "use_lidar": false,
+    "use_radar": false,
+    "use_map": false,
+    "use_external": false
+  },
+  "results": {
+    "sample_token_1": [
+      {
+        "sample_token": "sample_token_1",
+        "translation": [8.1, 1.0, 0.2],
+        "size": [1.9, 4.4, 1.6],
+        "rotation": [0.9998, 0.0, 0.0, 0.02],
+        "velocity": [2.0, 0.0],
+        "detection_name": "car",
+        "detection_score": 0.91,
+        "attribute_name": "vehicle.moving"
+      }
+    ],
+    "sample_token_2": [
+      {
+        "sample_token": "sample_token_2",
+        "translation": [9.2, 1.1, 0.2],
+        "size": [1.9, 4.4, 1.6],
+        "rotation": [0.9996, 0.0, 0.0, 0.028],
+        "velocity": [2.0, 0.1],
+        "detection_name": "car",
+        "detection_score": 0.88,
+        "attribute_name": "vehicle.moving"
+      }
+    ]
+  }
+}

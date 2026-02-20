@@ -7,3 +7,6 @@ dist/
 *.egg-info/
 outputs/
 .pycache/
+*.swp
+nuscenes_runtime/checkpoints/*.pth
+nuscenes_runtime/third_party/Sparse4D/

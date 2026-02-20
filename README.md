@@ -107,3 +107,21 @@ Creates JSON:
 ```bash
 python -m pytest -q
 ```
+
+## nuScenes Checkpoint Runtime
+
+For real detector + checkpoint usage on nuScenes data, use:
+
+`/Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime`
+
+Run with:
+
+```bash
+track3d-nuscenes --runtime-config /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/configs/runtime_example.yaml
+```
+
+Sparse4D detection-only to classical tracker:
+
+```bash
+track3d-sparse4d --config /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/configs/sparse4d_detection_to_tracker.yaml
+```
