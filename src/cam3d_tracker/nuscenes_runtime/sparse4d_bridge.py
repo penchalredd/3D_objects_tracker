@@ -32,6 +32,7 @@ def run_sparse4d_to_tracker(cfg: dict[str, Any]) -> None:
         _run_sparse4d_detection_only(scfg)
 
     token_to_ts = _load_token_timestamps(ccfg)
+    trace_tokens = _load_trace_tokens(ccfg)
     allowed = set(ccfg.get("allowed_labels", sorted(DEFAULT_ALLOWED_LABELS)))
 
     detections_json = Path(ocfg["detections_path"])
@@ -41,6 +42,7 @@ def run_sparse4d_to_tracker(cfg: dict[str, Any]) -> None:
         token_to_timestamp_s=token_to_ts,
         output_path=detections_json,
         allowed_labels=allowed,
+        trace_tokens=trace_tokens,
     )
 
     run_tracking(
@@ -114,6 +116,50 @@ def _load_token_timestamps(ccfg: dict[str, Any]) -> dict[str, float]:
     return {s["token"]: float(s["timestamp"]) * 1e-6 for s in nusc.sample}
 
 
+def _load_trace_tokens(ccfg: dict[str, Any]) -> set[str] | None:
+    scene_tokens_json = ccfg.get("scene_tokens_json")
+    if scene_tokens_json:
+        with open(scene_tokens_json, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict) and "sample_tokens" in data:
+            return {str(x) for x in data["sample_tokens"]}
+        if isinstance(data, list):
+            return {str(x) for x in data}
+        raise ValueError("scene_tokens_json must be a list or {\"sample_tokens\": [...]} ")
+
+    scene_name = ccfg.get("scene_name")
+    if not scene_name:
+        return None
+
+    try:
+        from nuscenes.nuscenes import NuScenes
+    except ImportError as exc:
+        raise RuntimeError(
+            "nuscenes-devkit required for scene trace filtering. Install it or provide conversion.scene_tokens_json."
+        ) from exc
+
+    nusc = NuScenes(
+        version=ccfg.get("nuscenes_version", "v1.0-trainval"),
+        dataroot=ccfg["nuscenes_dataroot"],
+        verbose=False,
+    )
+    scene_record = None
+    for scene in nusc.scene:
+        if scene["name"] == scene_name:
+            scene_record = scene
+            break
+    if scene_record is None:
+        raise ValueError(f"scene_name '{scene_name}' not found in nuScenes version {nusc.version}")
+
+    tokens: set[str] = set()
+    sample_token = scene_record["first_sample_token"]
+    while sample_token:
+        tokens.add(sample_token)
+        sample = nusc.get("sample", sample_token)
+        sample_token = sample["next"]
+    return tokens
+
+
 def _quat_wxyz_to_yaw(q: list[float]) -> float:
     w, x, y, z = q
     siny_cosp = 2.0 * (w * z + x * y)
@@ -126,6 +172,7 @@ def _convert_sparse4d_results_to_tracker_input(
     token_to_timestamp_s: dict[str, float],
     output_path: Path,
     allowed_labels: set[str],
+    trace_tokens: set[str] | None,
 ) -> None:
     with open(results_nusc_path, "r", encoding="utf-8") as f:
         nusc = json.load(f)
@@ -135,6 +182,8 @@ def _convert_sparse4d_results_to_tracker_input(
 
     for token, annos in by_token.items():
         if token not in token_to_timestamp_s:
+            continue
+        if trace_tokens is not None and token not in trace_tokens:
             continue
         dets = []
         for a in annos:

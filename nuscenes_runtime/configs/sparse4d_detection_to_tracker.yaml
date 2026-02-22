@@ -16,6 +16,10 @@ conversion:
   nuscenes_version: v1.0-trainval
   # For dry-run/local tests without nuscenes-devkit, provide token->timestamp map JSON.
   token_timestamps_json: null
+  # Optional: restrict tracker input to one exact ordered scene trace.
+  scene_tokens_json: null
+  # Optional alternative to scene_tokens_json; requires nuscenes-devkit tables.
+  scene_name: null
   allowed_labels: [car, truck, bus, trailer, construction_vehicle, pedestrian, motorcycle, bicycle]
 
 tracker:

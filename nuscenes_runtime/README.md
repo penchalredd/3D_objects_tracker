@@ -78,3 +78,27 @@ Local dry-run test (no Sparse4D inference):
 ```bash
 track3d-sparse4d --config /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/configs/sparse4d_detection_to_tracker_localtest.yaml
 ```
+
+## nuScenes Mini Trace (Ordered Scene Only)
+
+To avoid random frame mixing, generate one strict scene trace using `sample -> next`:
+
+```bash
+bash /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/scripts/prepare_nuscenes_mini_trace.sh \
+  /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/third_party/Sparse4D \
+  /path/to/nuscenes \
+  scene-0103 \
+  python
+```
+
+Then use:
+
+`/Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/configs/sparse4d_detection_to_tracker_mini_trace.yaml`
+
+and set:
+
+- `conversion.scene_tokens_json`
+- `conversion.token_timestamps_json`
+- `sparse4d.ann_file` to `data/nuscenes_anno_pkls/nuscenes-mini_infos_val.pkl`
+
+This guarantees tracker input stays on one contiguous scene trace.
