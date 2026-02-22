@@ -81,6 +81,13 @@ track3d-sparse4d --config /Users/bhumireddypenchalareddy/Documents/3d_tracker/nu
 
 ## nuScenes Mini Trace (Ordered Scene Only)
 
+Download mini dataset first:
+
+```bash
+bash /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/scripts/download_nuscenes_mini.sh \
+  /path/to/nuscenes
+```
+
 To avoid random frame mixing, generate one strict scene trace using `sample -> next`:
 
 ```bash

@@ -129,3 +129,7 @@ track3d-sparse4d --config /Users/bhumireddypenchalareddy/Documents/3d_tracker/nu
 To run on a strict nuScenes mini scene trace (ordered, no random frames), use:
 
 `/Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/scripts/prepare_nuscenes_mini_trace.sh`
+
+To download nuScenes mini quickly:
+
+`/Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/scripts/download_nuscenes_mini.sh`
