@@ -66,8 +66,14 @@ else
 fi
 
 if [ ! -d "$ROOT_DIR/can_bus" ]; then
-  download "$NUSC_CANBUS_URL" "$CANBUS_ZIP"
-  extract_zip "$CANBUS_ZIP" "$ROOT_DIR"
+  if download "$NUSC_CANBUS_URL" "$CANBUS_ZIP"; then
+    if ! extract_zip "$CANBUS_ZIP" "$ROOT_DIR"; then
+      echo "Warning: failed to extract can_bus.zip, skipping CAN bus package."
+      rm -f "$CANBUS_ZIP"
+    fi
+  else
+    echo "Warning: failed to download can_bus.zip, skipping CAN bus package."
+  fi
 else
   echo "Skipping can_bus download: existing can_bus/ found"
 fi

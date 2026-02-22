@@ -18,7 +18,12 @@ else
   echo "Sparse4D repo already exists: $SPARSE4D_DIR"
 fi
 
-if [ ! -f "$SPARSE4D_CKPT_PATH" ] || [ "$(stat -f%z "$SPARSE4D_CKPT_PATH" 2>/dev/null || echo 0)" -lt 100000000 ]; then
+ckpt_size=0
+if [ -f "$SPARSE4D_CKPT_PATH" ]; then
+  ckpt_size="$(wc -c < "$SPARSE4D_CKPT_PATH" | tr -d '[:space:]')"
+fi
+
+if [ ! -f "$SPARSE4D_CKPT_PATH" ] || [ "${ckpt_size:-0}" -lt 100000000 ]; then
   curl -L "$SPARSE4D_CKPT_URL" -o "$SPARSE4D_CKPT_PATH"
 fi
 

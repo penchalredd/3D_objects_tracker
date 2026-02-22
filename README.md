@@ -133,3 +133,16 @@ To run on a strict nuScenes mini scene trace (ordered, no random frames), use:
 To download nuScenes mini quickly:
 
 `/Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/scripts/download_nuscenes_mini.sh`
+
+## Docker (GPU)
+
+Build and run full mini-scene pipeline (Sparse4D detections -> classical tracker):
+
+```bash
+bash /Users/bhumireddypenchalareddy/Documents/3d_tracker/docker/run_container.sh /absolute/path/to/nuscenes scene-0103
+```
+
+This uses:
+
+- `/Users/bhumireddypenchalareddy/Documents/3d_tracker/Dockerfile`
+- `/Users/bhumireddypenchalareddy/Documents/3d_tracker/docker/run_sparse4d_mini_trace.sh`

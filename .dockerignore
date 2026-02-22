@@ -1,0 +1,8 @@
+.git
+.pycache
+__pycache__
+.pytest_cache
+.venv
+outputs
+nuscenes_runtime/checkpoints
+nuscenes_runtime/third_party

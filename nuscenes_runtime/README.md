@@ -88,6 +88,12 @@ bash /Users/bhumireddypenchalareddy/Documents/3d_tracker/nuscenes_runtime/script
   /path/to/nuscenes
 ```
 
+Containerized one-shot run:
+
+```bash
+bash /Users/bhumireddypenchalareddy/Documents/3d_tracker/docker/run_container.sh /path/to/nuscenes scene-0103
+```
+
 To avoid random frame mixing, generate one strict scene trace using `sample -> next`:
 
 ```bash
